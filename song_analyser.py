@@ -46,6 +46,8 @@ def volume_curve(song_array, f_rate):
     
     #Rolling average is required
     plt.plot(time_array, pandas.DataFrame(np.abs(song_array)).rolling(f_rate, center=True, min_periods=1).mean().to_numpy())
+    plt.xlabel("Time (s)")
+    plt.ylabel("Amplitude (arbitrary units)")
     plt.show()
     
 def fourier_test(song_array, f_rate, sample_position = 20.0, sample_length = 0.1):
@@ -63,13 +65,15 @@ def fourier_test(song_array, f_rate, sample_position = 20.0, sample_length = 0.1
 
     plt.plot(freqs[min_ind:max_ind], amplitudes[min_ind:max_ind])
     plt.xscale('log')
+    plt.xlabel("Frequency (Hz)")
+    plt.ylabel("Amplitude (relative)")
     plt.show()
     
 def main():
     fname = "mountain_king.mp3"
     song_array, f_rate = read_mp3(fname)
-    #fourier_test(song_array, f_rate, sample_position=20.0, sample_length=0.1)    
-    volume_curve(song_array, f_rate)
+    fourier_test(song_array, f_rate, sample_position=20.0, sample_length=1.0)    
+    #volume_curve(song_array, f_rate)
     
 
 if __name__ == "__main__":
